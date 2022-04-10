@@ -1,8 +1,10 @@
+
 const jwt = require("jsonwebtoken");
 const userTable = require('../model/userModel');
 
 const auth = async (req, res, next) => {
     try {
+        //req.header['token'] is called payload
         const payload = await jwt.verify(req.headers['token'], process.env.SECRET_KEY);
         if (payload._id) {
             const user = await userTable.findOne({ _id: payload._id });
