@@ -52,6 +52,7 @@ app.post('/login', async (req, res) => {
         console.log(req.body.password, "    ", user.password);
         const passMatch = await bcrypt.compare(req.body.password, user.password);
         if (passMatch) {
+            //creating  token for user authentication  
             const token = await user.jwtAuthToken();
             await user.save().then((doc) => res.status(201).send({ user: { email: doc.email }, token: token }));
         }
